@@ -1,33 +1,19 @@
 // Inclue the React library
-var React = require("react");
+import React from 'react';
 
-// Include the react-router module
-var router = require("react-router");
+// Include the Route, IndexRoute (catch-all route), Router and browserHistory (for client-side routing) components from react-router'
+import { Route, IndexRoute, Router, browserHistory } from 'react-router';
 
-// Include the Route component
-var Route = router.Route;
-
-//  Include the IndexRoute (catch-all route)
-var IndexRoute = router.IndexRoute;
-
-// Include the Router component
-var Router = router.Router;
-
-// Include the browserHistory prop to configure client side routing
-// https://github.com/ReactTraining/react-router/blob/master/docs/guides/Histories.md#browserhistory
-var browserHistory = router.browserHistory;
-
-// Reference the high-level components
-var Main = require("../components/Main");
-var Search = require("../components/Search");
-var Saved = require("../components/Saved");
-
+//Referencing components
+import Main from '../components/Main';
+import Search from '../components/Search';
+import Saved from '../components/Saved';
 
 // Export the Routes
-module.exports = (
+export default (
   // High level component is the Router component.
-  <Router history={browserHistory}>
-    <Route path="/" component={Main}>
+  <Router history={ browserHistory }>
+    <Route path="/" component={ Main }>
 
       {/* If user selects Search or Saved show the appropriate component */}
       <Route path="Search" component={Search} />

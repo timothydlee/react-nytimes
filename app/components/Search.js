@@ -1,49 +1,50 @@
 // Include React as a dependency
-var React = require("react");
+import React, { Component } from 'react';
 
 // Include the Query and Results components
-var Query = require("./search/Query");
-var Results = require("./search/Results");
+import Query from './search/Query';
+import Results from './search/Results';
 
 // Include the helpers for making API calls
-var helpers = require("../utils/helpers");
+import helpers from '../utils/helpers';
 
 // Create the Search component
-var Search = React.createClass({
+export default class Search extends Component {
 
-  // Here we set the initial state variables
-  // (this allows us to propagate the variables for maniuplation by the children components
-  // Also note the "resuls" state. This will be where we hold the data from our results
-  getInitialState: function() {
-    return {
-      results: {}
-    };
-  },
+	// Here we set the initial state variables
+	// (this allows us to propagate the variables for maniuplation by the children components
+	// Also note the "resuls" state. This will be where we hold the data from our results
+	constructor(props) {
+		super(props);
+	
+		this.state = {
+			results: {}
+		};
 
-  // This function will be passed down into child components so they can change the "parent"
-  // i.e we will pass this method to the query component that way it can change the main component
-  // to perform a new search
-  setQuery: function(newQuery, newStart, newEnd) {
-    helpers.runQuery(newQuery, newStart, newEnd).then(function(data) {
-      this.setState({ results: { docs: data.docs } });
-    }.bind(this));
-  },
+		this.setQuery = this.setQuery.bind(this);
+	}
 
-  // Render the component. Note how we deploy both the Query and the Results Components
-  render: function() {
-    console.log("Render Results", this.state.results);
+	// This function will be passed down into child components so they can change the "parent"
+	// i.e we will pass this method to the query component that way it can change the main component
+	// to perform a new search
+	setQuery(newQuery, newStart, newEnd) {
+		helpers.runQuery(newQuery, newStart, newEnd).then(function(data) {
+			this.setState({ results: { docs: data.docs } });
+		}.bind(this));
+	}
 
-    return (
-      <div className="main-container">
+	// Render the component. Note how we deploy both the Query and the Results Components
+	render() {
+		console.log("Render Results", this.state.results);
 
-        {/* Note how we pass the setQuery function to enable Query to perform searches */}
-        <Query updateSearch={this.setQuery} />
-        {/* Note how we pass in the results into this component */}
-        <Results results={this.state.results} />
-      </div>
-    );
-  }
-});
+		return (
+			<div className="main-container">
 
-// Export the module back to the route
-module.exports = Search;
+				{/* Note how we pass the setQuery function to enable Query to perform searches */}
+				<Query updateSearch={this.setQuery} />
+				{/* Note how we pass in the results into this component */}
+				<Results results={this.state.results} />
+			</div>
+		);
+	}
+};
