@@ -1,15 +1,15 @@
 // Include Server Dependencies
-var express     = require("express");
-var bodyParser  = require("body-parser");
-var logger      = require("morgan");
-var mongoose    = require("mongoose");
+var express = require("express");
+var bodyParser = require("body-parser");
+var logger = require("morgan");
+var mongoose = require("mongoose");
 
 // Require Schemas
-var Article = require("./server/model");
+var Article = require("./model/model");
 
 // Create Instance of Express
 var app = express();
-var PORT = process.env.PORT || 3000; // Sets an initial port. We'll use this later in our listener
+var PORT = process.env.PORT || 4000; // Sets an initial port. We'll use this later in our listener
 
 // Run Morgan for Logging
 app.use(logger("dev"));
@@ -23,8 +23,8 @@ app.use(express.static("./public"));
 // -------------------------------------------------
 
 // MongoDB Configuration configuration
-// mongoose.connect("mongodb://admin:reactrocks@ds023593.mlab.com:23593/heroku_pg676kmk");
-mongoose.connect('mongodb://localhost/nytimes-react')
+// mongoose.connect("mongodb://localhost/scores");
+mongoose.connect('mongodb://heroku_n6znbkt0:nvpocrhv7ne5ae4sed16qppifp@ds157549.mlab.com:57549/heroku_n6znbkt0')
 var db = mongoose.connection;
 
 db.on("error", function(err) {
